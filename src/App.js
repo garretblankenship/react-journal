@@ -8,7 +8,13 @@ import NewEntryView from "./NewEntryView";
 
 class App extends Component {
     state = {
-        categories: ["food", "thoughts", "other"]
+        categories: ["food", "thoughts", "other"],
+        entries: []
+    }
+
+    onEntryFormSubmit = (value) => {        
+        let { entries } = this.state;
+        this.setState({ entries: [...entries, value] });
     }
     
     render() {
@@ -27,7 +33,7 @@ class App extends Component {
                         exact 
                         path="/entry/new/:id" 
                         render={(props) => {
-                            return <NewEntryView {...props} categories={this.state.categories} />
+                            return <NewEntryView {...props} categories={this.state.categories} onEntryFormSubmit={this.onEntryFormSubmit} />
                         }}
                     />
                 </BrowserRouter>
