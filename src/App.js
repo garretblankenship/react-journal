@@ -7,13 +7,29 @@ import NewEntryView from "./NewEntryView";
 //localhost:3000/garret/is/cool
 
 class App extends Component {
+    state = {
+        categories: ["food", "thoughts", "other"]
+    }
+    
     render() {
         return (
             <div>
                 <BrowserRouter>
                     <Route exact path="/" component={HomeView} />
-                    <Route exact path="/category" component={CategorySelectionView} />
-                    <Route exact path="/entry" component={NewEntryView} />
+                    <Route 
+                        exact 
+                        path="/category" 
+                        render={(props) => {
+                            return <CategorySelectionView {...props} categories={this.state.categories} />
+                        }}
+                    />
+                    <Route 
+                        exact 
+                        path="/entry/new/:id" 
+                        render={(props) => {
+                            return <NewEntryView {...props} categories={this.state.categories} />
+                        }}
+                    />
                 </BrowserRouter>
             </div>
         );
